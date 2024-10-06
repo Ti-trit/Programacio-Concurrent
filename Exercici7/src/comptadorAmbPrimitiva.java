@@ -1,5 +1,6 @@
 /**
  * Implementacio d'un comptador usant la primitiva de sincronització get&add
+ * @author Titrit
  */
 
 import java.util.concurrent.atomic.AtomicInteger;
