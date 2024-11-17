@@ -1,0 +1,23 @@
+[GENERATED OBJECT FILE]
+b__filosofsentry.o
+[PROJECT FILES]
+C:\Users\h\OneDrive\Documents\PC Connect\NoRendezvous\NoRendezVous.gpr
+20241117120742 fc9dc4072ff2f264024658b02626db56
+[BOUND OBJECT FILES]
+C:\Users\h\OneDrive\Documents\PC Connect\NoRendezvous\obj\def_monitorpalets.o
+C:\Users\h\OneDrive\Documents\PC Connect\NoRendezvous\obj\filosofsentry.o
+[GENERATED SOURCE FILES]
+b__filosofsentry.ads
+b__filosofsentry.adb
+b__filosofsentry.ali
+[RESULTING OPTIONS]
+-LC:\Users\h\OneDrive\Documents\PC Connect\NoRendezvous\obj\
+-LC:\Users\h\OneDrive\Documents\PC Connect\NoRendezvous\obj\
+-LC:/gnat/2021/lib/gcc/x86_64-w64-mingw32/10.3.1/adalib/
+-static
+-static-libgcc
+C:/gnat/2021/lib/gcc/x86_64-w64-mingw32/10.3.1/adalib/libgnarl.a
+C:/gnat/2021/lib/gcc/x86_64-w64-mingw32/10.3.1/adalib/libgnat.a
+-Xlinker
+--stack=0x200000,0x1000
+-mthreads

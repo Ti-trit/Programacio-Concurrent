@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<Locations>
+  <Project>
+    <vfs_file />
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>C:\Users\h\OneDrive\Documents\AmbRendezvous\src\filosofsentry.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 23" line=" 9" >
+      <vfs_project />
+      <vfs_file>C:\Users\h\OneDrive\Documents\AmbRendezvous\src\filosofsentry.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>C:\Users\h\OneDrive\Documents\AmbRendezvous\src\def_monitorpalets.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>C:\Users\h\OneDrive\Documents\AmbRendezvous\src\def_monitorpalets.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>C:\Users\h\OneDrive\Documents\AmbRendezvous\src\filosofsentry.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>C:\Users\h\OneDrive\Documents\AmbRendezvous\src\ambRendezVous.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 26" line=" 2" >
+      <vfs_project />
+      <vfs_file>C:\Users\h\OneDrive\Documents\AmbRendezvous\src\ambRendezVous.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 19" line=" 5" >
+      <vfs_project />
+      <vfs_file>C:\Users\h\OneDrive\Documents\AmbRendezvous\src\ambRendezVous.gpr</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 26" line=" 2" >
+      <vfs_project />
+      <vfs_file>C:\Users\h\OneDrive\Documents\AmbRendezvous\src\ambRendezVous.gpr</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

@@ -1,0 +1,132 @@
+V "GNAT Lib v2021"
+A -gnatA
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV SIMPLE_BARRIERS
+RV PURE_BARRIERS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTION_PROPAGATION
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_PROTECTED_TYPES
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV MAX_PROTECTED_ENTRIES=5
+
+U def_monitorpalets%b	def_monitorpalets.adb	1da930c3 NE OO PK IL
+W ada%s			ada.ads			ada.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+Z system%s		system.ads		system.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
+Z system.tasking.protected_objects.entries%s  s-tpoben.adb  s-tpoben.ali
+Z system.tasking.protected_objects.operations%s  s-tpobop.adb  s-tpobop.ali
+
+U def_monitorpalets%s	def_monitorpalets.ads	cd6327f7 EE NE OO PK IL
+Z ada.exceptions%s	a-except.adb		a-except.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+Z system%s		system.ads		system.ali
+Z system.tasking%s	s-taskin.adb		s-taskin.ali
+Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
+Z system.tasking.protected_objects.entries%s  s-tpoben.adb  s-tpoben.ali
+
+D ada.ads		20210520051132 76789da1 ada%s
+D a-except.ads		20210520051128 946f3014 ada.exceptions%s
+D a-finali.ads		20210520051128 bf4f806b ada.finalization%s
+D a-ioexce.ads		20210520051128 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20210520051130 119b8fb3 ada.streams%s
+D a-string.ads		20210520051130 90ac6797 ada.strings%s
+D a-sttebu.ads		20210520051130 18209c64 ada.strings.text_buffers%s
+D a-stuten.ads		20210520051130 808c40ad ada.strings.utf_encoding%s
+D a-tags.ads		20210520051130 9eaa38c6 ada.tags%s
+D a-textio.ads		20210520051130 aef4d56d ada.text_io%s
+D a-unccon.ads		20210520051130 0e9b276f ada.unchecked_conversion%s
+D def_monitorpalets.ads	20241117112500 cd6327f7 def_monitorpalets%s
+D def_monitorpalets.adb	20241117112500 7e3ec259 def_monitorpalets%b
+D interfac.ads		20210520051132 edec285f interfaces%s
+D i-c.ads		20210520051132 d9beded9 interfaces.c%s
+D i-cstrin.ads		20210520051132 341d0ddf interfaces.c.strings%s
+D i-cstrea.ads		20210520051132 e53d8b8e interfaces.c_streams%s
+D system.ads		20210520051136 2ffa5114 system%s
+D s-atacco.ads		20210520051132 4c36d12f system.address_to_access_conversions%s
+D s-crtl.ads		20210520051132 0ebbdb71 system.crtl%s
+D s-exctab.ads		20210520051132 54135002 system.exception_table%s
+D s-ficobl.ads		20210520051132 078245e4 system.file_control_block%s
+D s-finroo.ads		20210520051132 4ff27390 system.finalization_root%s
+D s-multip.ads		20210520051134 38ac9f73 system.multiprocessors%s
+D s-osinte.ads		20210520051128 97504df8 system.os_interface%s
+D s-parame.ads		20210520051134 4752c4cb system.parameters%s
+D s-putima.ads		20210520051134 4e095881 system.put_images%s
+D s-secsta.ads		20210520051134 9b3ab94b system.secondary_stack%s
+D s-soflin.ads		20210520051134 a7318a92 system.soft_links%s
+D s-stache.ads		20210520051134 a37c21ec system.stack_checking%s
+D s-stausa.ads		20210520051134 017a0a05 system.stack_usage%s
+D s-stalib.ads		20210520051134 472fbca8 system.standard_library%s
+D s-stoele.ads		20210520051134 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20210520051134 ed88f8fb system.storage_elements%b
+D s-tasinf.ads		20210520051128 601f6b72 system.task_info%s
+D s-taspri.ads		20210520051128 a1350802 system.task_primitives%s
+D s-taskin.ads		20210520051128 88fba9ad system.tasking%s
+D s-taprob.ads		20210520051128 acd6094d system.tasking.protected_objects%s
+D s-tpoben.ads		20210520051128 60ad3dae system.tasking.protected_objects.entries%s
+D s-tpobop.ads		20210520051128 5f548bb3 system.tasking.protected_objects.operations%s
+D s-traent.ads		20210520051134 26a8d361 system.traceback_entries%s
+D s-unstyp.ads		20210520051134 2b077493 system.unsigned_types%s
+D s-wchcon.ads		20210520051136 1b7d22d2 system.wch_con%s
+D s-win32.ads		20210520051136 15ac53fb system.win32%s
+D unchconv.ads		20210520051136 ca2f9e18 unchecked_conversion%s
+G a e
+G c Z s b [esq def_monitorpalets 6 13 none]
+G c Z s b [dre def_monitorpalets 8 13 none]
+G c Z s b [agafa def_monitorpalets__monitorpalets 12 13 none]
+G c Z s b [deixa def_monitorpalets__monitorpalets 13 17 none]
+G c Z s b [inicialitzar def_monitorpalets__monitorpalets 14 17 none]
+G c Z s b [acaba def_monitorpalets__monitorpalets 15 17 none]
+G c Z s b [monitorpalets__deixaN def_monitorpalets 13 7 none]
+G c Z s b [monitorpalets__deixaP def_monitorpalets 13 7 none]
+G c Z s b [monitorpalets__inicialitzarN def_monitorpalets 14 7 none]
+G c Z s b [monitorpalets__inicialitzarP def_monitorpalets 14 7 none]
+G c Z s b [monitorpalets__acabaN def_monitorpalets 15 7 none]
+G c Z s b [monitorpalets__acabaP def_monitorpalets 15 7 none]
+G c Z s s [TtpaletsBIP def_monitorpalets 5 4 none]
+G c Z s s [F3sIP def_monitorpalets 11 4 none]
+G c Z s s [monitorpaletsVDI def_monitorpalets 11 4 none]
+G c Z s s [monitorpaletsVDF def_monitorpalets 11 4 none]
+G c Z s s [monitorpaletsVIP def_monitorpalets 11 4 none]
+G c Z b b [monitorpalets__get_paletsN def_monitorpalets 20 7 none]
+X 1 ada.ads
+16K9*Ada 20e8 13|1r6 2r5
+X 10 a-textio.ads
+58K13*Text_IO 725e16 13|1w10 2r9
+X 12 def_monitorpalets.ads
+1K9*def_monitorpalets 24l5 24e22 13|4b14 55l7 55t24
+3i4*NUMFILOSOFS{integer} 4r39 13|10r37 10r58 15r44
+4I9*index<integer> 5r27 6r20 6r34 8r20 8r34 12r20 13r33 13|8r22 8r36 10r17
+. 13r22 13r36 15r17 20r35 25r29 33r28 43r17
+5A9*tpalets(integer)<4I9> 20r12
+6V13*esq{4I9} 6>17 13|8b15 11l10 11t13 29s18 29s38 36s18 36s38
+6i17 i{4I9} 13|8b19 10r32
+8V13*dre{4I9} 8>17 13|13b15 16l8 16t11 30s18 30s38 37s18 37s38
+8i17 i{4I9} 13|13b19 15r32
+11W19*MonitorPalets 20E4 22l8 22e21 13|18b19 53l6 53t19
+12Y13 Agafa 13|25b11 31l6 31t11
+13U17 Deixa 13>24 13|33b12 39l6 39t11
+13i24 Idx{4I9} 13|33b19 36r22 36r42 37r22 37r42
+14U17 Inicialitzar 13|41b12 46l6 46t18
+15U17 Acaba 13|48b15 51l9 51t14
+20a4 palets{5A9} 13|22r17 25r41 29r11 29r31 30r11 30r31 36r11 36r31 37r11
+. 37r31 44r10
+X 13 def_monitorpalets.adb
+6i4 acabats{integer} 50m5 50r15
+20V16 get_palets{integer} 20b16 23l14 23t24
+25i22 Idx
+43i12 i{12|4I9} 44r17
+X 31 s-stausa.ads
+208U14*Initialize 209i<c,__gnat_stack_usage_initialize>22
+273U14*Output_Results 277i<c,__gnat_stack_usage_output_results>22
+
