@@ -62,7 +62,7 @@ func main() {
 	//exchange declare
 	err = ch.ExchangeDeclare("avisPolicia", //name
 		"fanout", //exchange type
-		true,     //durable
+		false,    //durable
 		false,    // auto-deleted
 		false,    // internal
 		false,    // no-wait
@@ -71,8 +71,8 @@ func main() {
 	failOnError(err, "Failed to declare an exchange")
 
 	//vincular cada una de les cues a les que enviarem l'avis de la policia
-	err = ch.QueueBind("peticions", "", "avisPolicia", false, nil)
-	failOnError(err, "Failed to bind queue peticions to avisPolicia")
+	// err = ch.QueueBind("peticions", "", "avisPolicia", false, nil)
+	// failOnError(err, "Failed to bind queue peticions to avisPolicia")
 	//fumadorMistos
 	err = ch.QueueBind("Avisos_FumadorMistos", "", "avisPolicia", false, nil)
 	failOnError(err, "Failed to bind queue Avisos_FumadorMistos to avisPolicia")

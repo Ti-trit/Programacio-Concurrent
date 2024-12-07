@@ -15,7 +15,8 @@ func failOnError(err error, msg string) {
 	}
 }
 
-var numTabacs, numMistos int
+var numTabacs int = 0
+var numMistos int = 0
 
 func main() {
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
@@ -80,7 +81,7 @@ func main() {
 	err = ch.ExchangeDeclare(
 		"avisPolicia", //name
 		"fanout",      //exchange type
-		true,          //durable
+		false,         //durable
 		false,         // auto-deleted
 		false,         // internal
 		false,         // no-wait
@@ -123,7 +124,7 @@ func estanquer(ch *amqp.Channel, messages <-chan amqp.Delivery) {
 
 			} else if string(d.Body) == "mistos" {
 				numMistos++
-				log.Printf("He posat el misto %d damunt la taula", numTabacs)
+				log.Printf("He posat el misto %d damunt la taula", numMistos)
 				//publicar el missatge per la cua de fumados de misos
 				msg := fmt.Sprintf("%d", numMistos)
 
@@ -156,7 +157,8 @@ func veLaPolicia(ch *amqp.Channel) {
 
 	for range messages {
 		fmt.Println("\n Uyuyuy la policia! Men vaig")
-		time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
+
 		//esborrar les cues
 		ch.QueueDelete("tabac", //nomd de la cua
 			false, //
@@ -165,8 +167,18 @@ func veLaPolicia(ch *amqp.Channel) {
 		ch.QueueDelete("mistos", false, false, true)
 		ch.QueueDelete("peticions", false, false, true)
 		ch.QueueDelete("messages", false, false, true)
+		ch.QueueDelete("avisos", false, false, true)
 		ch.QueueDelete("Avisos_estanquer", false, false, false)
+		//aqui no esborrem les cues de avisos_fumadorsTabac ni avisos_FumadorMistos
+		//perquè van notificant als seus companyers
 
+		//esperar 2 segons perquè la resta de fumados tenguin temps
+		//per rebre l'avis
+
+		time.Sleep(2 * time.Second)
+
+		ch.QueueDelete("Avisos_FumadorMistos", false, false, true)
+		ch.QueueDelete("Avisos_FumadorTabac", false, false, true)
 		ch.ExchangeDelete("avisPolicia", false, false)
 
 		fmt.Fprintln(os.Stdout, []any{". . . Men duc la taula!!!\n"}...)
