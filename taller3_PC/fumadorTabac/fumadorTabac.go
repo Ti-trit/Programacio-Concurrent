@@ -64,10 +64,6 @@ func main() {
 	)
 	failOnError(err, "Failed to declare an exchange")
 
-	//establir la vinculacio en cada instancia del fumadorTabac
-	err = ch.QueueBind("Avisos_FumadorTabac", "", "avisPolicia", false, nil)
-	failOnError(err, "Failed to bind queue Avisos_FumadorTabac to avisPolicia") //cua de consum de tabac
-
 	consumicions_tabac, err := ch.Consume(
 		tabac.Name, //queue
 		"",         //consumer
@@ -78,6 +74,10 @@ func main() {
 		nil,        // args
 	)
 	failOnError(err, "Failed to register consumer tabac")
+
+	//establir la vinculacio en cada instancia del fumadorTabac
+	err = ch.QueueBind("Avisos_FumadorTabac", "", "avisPolicia", false, nil)
+	failOnError(err, "Failed to bind queue Avisos_FumadorTabac to avisPolicia") //cua de consum de tabac
 
 	fmt.Print("Sóc fumador. Tinc mistos però me falta tabac\n")
 
@@ -102,7 +102,6 @@ func fumadorTabac(ch *amqp.Channel, consumicions_tabac <-chan amqp.Delivery, pet
 			})
 
 		failOnError(err, "Failed to publish a message to get tabac")
-
 		//agafar els mistos
 		for d := range consumicions_tabac {
 			numTabacs, err := strconv.Atoi(string(d.Body))

@@ -177,8 +177,8 @@ func veLaPolicia(ch *amqp.Channel) {
 
 		time.Sleep(2 * time.Second)
 
-		ch.QueueDelete("Avisos_FumadorMistos", false, false, true)
-		ch.QueueDelete("Avisos_FumadorTabac", false, false, true)
+		//ch.QueueDelete("Avisos_FumadorMistos", false, false, true)
+		//ch.QueueDelete("Avisos_FumadorTabac", false, false, true)
 		ch.ExchangeDelete("avisPolicia", false, false)
 
 		fmt.Fprintln(os.Stdout, []any{". . . Men duc la taula!!!\n"}...)

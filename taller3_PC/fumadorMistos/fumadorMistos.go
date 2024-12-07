@@ -103,7 +103,6 @@ func fumadorMistos(ch *amqp.Channel, consumicions_mistos <-chan amqp.Delivery, p
 			})
 
 		failOnError(err, "Failed to publish a message")
-
 		//agafar els mistos
 		for d := range consumicions_mistos {
 			numMistos, err := strconv.Atoi(string(d.Body))
