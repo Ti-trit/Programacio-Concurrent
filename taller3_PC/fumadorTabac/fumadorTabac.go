@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"time"
 
 	amqp "github.com/rabbitmq/amqp091-go"
@@ -90,7 +91,13 @@ func fumadorTabac(ch *amqp.Channel, consumicions_tabac <-chan amqp.Delivery, pet
 
 		//agafar els mistos
 		for d := range consumicions_tabac {
-			fmt.Printf("He agafat el tabac %d. Gràcies!\n", d.Body)
+			numMistos, err := strconv.Atoi(string(d.Body))
+			if err != nil {
+				log.Printf("Error convertint el missatge a número: %v", err)
+				continue
+			}
+			fmt.Printf("He agafat el tabac %d. Gràcies!\n", numMistos)
+			break
 		}
 
 		time.Sleep(time.Second * 1) //espera 2 segons
@@ -107,10 +114,13 @@ func veLaPolicia_FT(ch *amqp.Channel) {
 
 	for range messages {
 		fmt.Println("\n Anem que ve la policia!")
-		time.Sleep(2 * time.Second)
-
+		//time.Sleep(2 * time.Second)
+		err = ch.Publish("", "tabac", false, false, amqp.Publishing{Body: []byte("policia")})
+		failOnError(err, "Failed to publish a messsage")
 		//acaba
 		os.Exit(0)
 
 	}
+	//avisar als altres possibles fumados de tabac
+
 }

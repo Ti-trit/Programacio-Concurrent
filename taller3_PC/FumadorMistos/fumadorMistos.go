@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"time"
 
 	amqp "github.com/rabbitmq/amqp091-go"
@@ -90,7 +91,13 @@ func fumadorMistos(ch *amqp.Channel, consumicions_tabac <-chan amqp.Delivery, pe
 
 		//agafar els mistos
 		for d := range consumicions_tabac {
-			fmt.Printf("He agafat el tabac %d. Gràcies!\n", d.Body)
+			numTabac, err := strconv.Atoi(string(d.Body))
+			if err != nil {
+				log.Printf("Error convertint el missatge a número: %v", err)
+				continue
+			}
+			fmt.Printf("He agafat el tabac %d. Gràcies!\n", numTabac)
+			break // consumit un missatge, sortir del bucle
 		}
 
 		time.Sleep(time.Second * 1) //espera 2 segons
