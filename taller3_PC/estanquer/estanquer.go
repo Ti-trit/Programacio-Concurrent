@@ -152,37 +152,34 @@ func estanquer(ch *amqp.Channel, messages <-chan amqp.Delivery) {
 
 func veLaPolicia(ch *amqp.Channel) {
 
-	messages, err := ch.Consume("Avisos_estanquer", "", true, false, false, false, nil)
+	messages, err := ch.Consume("Avisos_estanquer", "", false, false, false, false, nil)
 	failOnError(err, "Failed to register a consumer")
 
-	for range messages {
+	for d := range messages {
 		fmt.Println("\n Uyuyuy la policia! Men vaig")
 		time.Sleep(1 * time.Second)
-
+		d.Ack(false)
 		//esborrar les cues
-		ch.QueueDelete("tabac", //nomd de la cua
-			false, //
-			false,
-			true)
+		ch.QueueDelete("tabac", false, false, true)
 		ch.QueueDelete("mistos", false, false, true)
 		ch.QueueDelete("peticions", false, false, true)
 		ch.QueueDelete("messages", false, false, true)
 		ch.QueueDelete("avisos", false, false, true)
 		ch.QueueDelete("Avisos_estanquer", false, false, false)
-		//aqui no esborrem les cues de avisos_fumadorsTabac ni avisos_FumadorMistos
-		//perquè van notificant als seus companyers
 
-		//esperar 2 segons perquè la resta de fumados tenguin temps
-		//per rebre l'avis
+		//esperar 3 segons perquè la resta de fumados tenguin temps
+		//per rebre l'avis i anar acabant
 
-		time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
 
-		//ch.QueueDelete("Avisos_FumadorMistos", false, false, true)
-		//ch.QueueDelete("Avisos_FumadorTabac", false, false, true)
 		ch.ExchangeDelete("avisPolicia", false, false)
+		ch.QueueDelete("Avisos_FumadorMistos", false, false, true)
+		time.Sleep(1 * time.Second)
+		ch.QueueDelete("Avisos_FumadorTabac", false, false, true)
 
-		fmt.Fprintln(os.Stdout, []any{". . . Men duc la taula!!!\n"}...)
+		fmt.Println(". . . Men duc la taula ! ! ! !")
 		//acaba
+
 		os.Exit(0)
 	}
 
