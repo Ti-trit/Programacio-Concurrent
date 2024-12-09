@@ -31,38 +31,21 @@ func main() {
 	//defincio de coes a usar
 
 	//Cues per enviar tabac i mistos
+	var nomCues = [3]string{"tabac", "mistos", "peticions"}
+	for i := 0; i < len(nomCues); i++ {
+		_, err = ch.QueueDeclare(
+			nomCues[i], //name
+			false,      //durable
+			false,      //delete when unused
+			false,      //exclusive
+			false,      //no-wait
+			nil,        //arguments
+		)
+		if err != nil {
+			log.Panicf("%s: %s %s", "Failed to declare queue", err, nomCues[i])
 
-	_, err = ch.QueueDeclare(
-		"tabac", //name
-		false,   //durable
-		false,   //delete when unused
-		false,   //exclusive
-		false,   //no-wait
-		nil,     //arguments
-	)
-
-	failOnError(err, "Failed to declare a queue")
-
-	_, err = ch.QueueDeclare(
-		"mistos", //name
-		false,    //durable
-		false,    //delete when unused
-		false,    //exclusive
-		false,    //no-wait
-		nil,      //arguments
-	)
-	failOnError(err, "Failed to declare a queue")
-	//per aquesta cua demanen el tabc/mistos els fumadors, i el fumador envia
-	//l'alerta per aqui tambe
-	_, err = ch.QueueDeclare(
-		"peticions", //name
-		false,       //durable
-		false,       //delete when unused
-		false,       //exclusive
-		false,       //no-wait
-		nil,         //arguments
-	)
-	failOnError(err, "Failed to declare a queue")
+		}
+	}
 
 	//cua de comsum
 	messages, err := ch.Consume(
@@ -160,22 +143,13 @@ func veLaPolicia(ch *amqp.Channel) {
 		time.Sleep(1 * time.Second)
 		d.Ack(false)
 		//esborrar les cues
-		ch.QueueDelete("tabac", false, false, true)
-		ch.QueueDelete("mistos", false, false, true)
-		ch.QueueDelete("peticions", false, false, true)
-		ch.QueueDelete("messages", false, false, true)
+		var nomCues = [6]string{"tabac", "mistos", "peticions", "messages", "Avisos_FumadorMistos", "Avisos_FumadorTabac"}
+		for i := 0; i < len(nomCues); i++ {
+			time.Sleep(1 * time.Second)
+			ch.QueueDelete(nomCues[i], false, false, true)
+		}
 
 		ch.QueueDelete("Avisos_estanquer", false, false, false)
-
-		//esperar 3 segons perquè la resta de fumados tenguin temps
-		//per rebre l'avis i anar acabant
-
-		time.Sleep(1 * time.Second)
-
-		//ch.ExchangeDelete("avisPolicia", false, false)
-		ch.QueueDelete("Avisos_FumadorMistos", false, false, true)
-		time.Sleep(1 * time.Second)
-		ch.QueueDelete("Avisos_FumadorTabac", false, false, true)
 
 		fmt.Println(". . . Men duc la taula ! ! ! !")
 		//acaba

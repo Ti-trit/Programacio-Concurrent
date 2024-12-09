@@ -16,6 +16,8 @@ func failOnError(err error, msg string) {
 	}
 }
 
+var nomCues = [3]string{"mistos", "peticions", "Avisos_FumadorMistos"}
+
 func main() {
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
@@ -28,76 +30,51 @@ func main() {
 
 	//defincio de cues a usar
 
-	//Cua per enviar mistos
-	mistos, err := ch.QueueDeclare(
-		"mistos", //name
-		false,    //durable
-		false,    //delete when unused
-		false,    //exclusive
-		false,    //no-wait
-		nil,      //arguments
-	)
-	failOnError(err, "Failed to declare a queue")
+	for i := 0; i < len(nomCues); i++ {
+		_, err = ch.QueueDeclare(
+			nomCues[i], //name
+			false,      //durable
+			false,      //delete when unused
+			false,      //exclusive
+			false,      //no-wait
+			nil,        //arguments
+		)
+		//failOnError(err, "Failed to declare a tabac queue")
+		if err != nil {
+			log.Panicf("%s: %s %s", "Failed to declare queue", err, nomCues[i])
 
-	//cua per solicitar mistos
-	peticions, err := ch.QueueDeclare(
-		"peticions", //name
-		false,       //durable
-		false,       //delete when unused
-		false,       //exclusive
-		false,       //no-wait
-		nil,         //arguments
-	)
-	failOnError(err, "Failed to declare a queue")
+		}
 
-	//cua per rebre avisos de policia
+	}
 
-	_, err = ch.QueueDeclare("Avisos_FumadorMistos", false, false, false, false, nil)
-	failOnError(err, "Failed to declare Avisos_FumadorMistos queue")
-
-	// err = ch.ExchangeDeclare("avisPolicia", //name
-	// 	"fanout", //exchange type
-	// 	false,    //durable
-	// 	false,    // auto-deleted
-	// 	false,    // internal
-	// 	false,    // no-wait
-	// 	nil,      // arguments
-	// )
-	// failOnError(err, "Failed to declare an exchange")
-
-	//establir la vinculacio en cada instancia del fumadorTabac
-	// err = ch.QueueBind("Avisos_FumadorMistos", "", "avisPolicia", false, nil)
-	// failOnError(err, "Failed to bind queue Avisos_FumadorMistos to avisPolicia") //cua de consum de tabac
-
-	//cua de consum de tabac
-	consumicions_mistos, err := ch.Consume(
-		mistos.Name, //queue
-		"",          //consumer
-		false,       // auto-ack
-		false,       // exclusive
-		false,       // no-local
-		false,       // no-wait
-		nil,         // args
-	)
-	failOnError(err, "Failed to register a consumer")
 	fmt.Print("Sóc fumador. Tinc tabac però me falten mistos\n")
 
 	go veLaPolicia_FM(ch)
 
-	fumadorMistos(ch, consumicions_mistos, peticions)
+	fumadorMistos(ch)
 
 }
 
-func fumadorMistos(ch *amqp.Channel, consumicions_mistos <-chan amqp.Delivery, peticions amqp.Queue) {
+func fumadorMistos(ch *amqp.Channel) {
 
+	consumicions_mistos, err := ch.Consume(
+		"mistos", //queue
+		"",       //consumer
+		false,    // auto-ack
+		false,    // exclusive
+		false,    // no-local
+		false,    // no-wait
+		nil,      // args
+	)
+	failOnError(err, "Failed to register a consumer: consumicions_mistos")
 	mes_peticio := make(chan bool)
 	go func() {
 		for {
 			err := ch.Publish(
-				"",             //exchange
-				peticions.Name, //routing key,
-				false,          //mandatory
-				false,          //immediate
+				"",          //exchange
+				"peticions", //routing key,
+				false,       //mandatory
+				false,       //immediate
 				amqp.Publishing{
 					DeliveryMode: amqp.Persistent,
 					ContentType:  "text/plain",

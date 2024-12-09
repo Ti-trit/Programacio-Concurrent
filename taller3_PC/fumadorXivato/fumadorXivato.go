@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 
+	"os"
+
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
@@ -12,6 +14,8 @@ func failOnError(err error, msg string) {
 		log.Panicf("%s: %s", msg, err)
 	}
 }
+
+var nomCues = [3]string{"Avisos_estanquer", "Avisos_FumadorMistos", "Avisos_FumadorTabac"}
 
 func main() {
 
@@ -26,30 +30,21 @@ func main() {
 
 	//declarar la cues d'avis
 
-	_, err = ch.QueueDeclare(
-		"Avisos_FumadorMistos", //name
-		false,                  //durable
-		false,                  //delete when unused
-		false,                  //exclusive
-		false,                  //no-wait
-		nil,                    //arguments
-	)
-	failOnError(err, "Failed to declare a queue")
+	for i := 0; i < len(nomCues); i++ {
+		_, err = ch.QueueDeclare(
+			nomCues[i], //name
+			false,      //durable
+			false,      //delete when unused
+			false,      //exclusive
+			false,      //no-wait
+			nil,        //arguments
+		)
+		failOnError(err, "Failed to declare a queue")
 
-	_, err = ch.QueueDeclare(
-		"Avisos_FumadorTabac", //name
-		false,                 //durable
-		false,                 //delete when unused
-		false,                 //exclusive
-		false,                 //no-wait
-		nil,                   //arguments
-	)
+	}
 
-	failOnError(err, "Failed to declare a queue")
-
-	_, err = ch.QueueDeclare("Avisos_estanquer", false, false, false, false, nil)
-	failOnError(err, "Failed to declare a queue")
 	//exchange declare
+
 	err = ch.ExchangeDeclare("avisPolicia", //name
 		"fanout", //exchange type
 		false,    //durable
@@ -62,21 +57,19 @@ func main() {
 
 	//vincular cada una de les cues a les que enviarem l'avis de la policia
 
-	err = ch.QueueBind("Avisos_FumadorMistos", "", "avisPolicia", false, nil)
-	failOnError(err, "Failed to bind queue Avisos_FumadorMistos to avisPolicia")
-	//fumadorTabac
-	err = ch.QueueBind("Avisos_FumadorTabac", "", "avisPolicia", false, nil)
-	failOnError(err, "Failed to bind queue Avisos_FumadorTabac to avisPolicia")
-	//estanquer
-	err = ch.QueueBind("Avisos_estanquer", "", "avisPolicia", false, nil)
-	failOnError(err, "Failed to bind queue Avisos_FumadorTabac to avisPolicia")
+	for i := 0; i < len(nomCues); i++ {
+		err = ch.QueueBind(nomCues[i], "", "avisPolicia", false, nil)
+		failOnError(err, "Failed to bind queue Avisos_FumadorMistos to avisPolicia")
+		if err != nil {
+			fmt.Fprintln(os.Stdout, []any{"Failed to bin queue %s to exchange avisPolicia", nomCues[i]}...)
+		}
+	}
 
 	//publicara el missatge de "policia" per la cua d'avisos per l'estanque, i per les cues
 	// de Avisos_FumadorMistos i Avisos_FumadorTabac
 	err = ch.Publish("avisPolicia", "", false, false, amqp.Publishing{Body: []byte("policia")})
-	failOnError(err, "Failed to publish a messsage")
+	failOnError(err, "Failed to publish a messsage: policia ")
 
-	fmt.Println("No sóm fumador. ALERTA! Que ve la policia!")
-	fmt.Println(". . .")
+	fmt.Println("No sóm fumador. ALERTA! Que ve la policia!\n. . .")
 
 }
