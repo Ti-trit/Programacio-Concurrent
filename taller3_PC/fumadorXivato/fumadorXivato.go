@@ -53,7 +53,7 @@ func main() {
 	err = ch.ExchangeDeclare("avisPolicia", //name
 		"fanout", //exchange type
 		false,    //durable
-		false,    // auto-deleted
+		true,     // auto-deleted
 		false,    // internal
 		false,    // no-wait
 		nil,      // arguments

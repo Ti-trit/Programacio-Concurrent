@@ -82,7 +82,7 @@ func main() {
 		"avisPolicia", //name
 		"fanout",      //exchange type
 		false,         //durable
-		false,         // auto-deleted
+		true,          // auto-deleted
 		false,         // internal
 		false,         // no-wait
 		nil,           // arguments
@@ -172,7 +172,7 @@ func veLaPolicia(ch *amqp.Channel) {
 
 		time.Sleep(1 * time.Second)
 
-		ch.ExchangeDelete("avisPolicia", false, false)
+		//ch.ExchangeDelete("avisPolicia", false, false)
 		ch.QueueDelete("Avisos_FumadorMistos", false, false, true)
 		time.Sleep(1 * time.Second)
 		ch.QueueDelete("Avisos_FumadorTabac", false, false, true)
