@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-
 	"os"
 
 	amqp "github.com/rabbitmq/amqp091-go"
@@ -28,7 +27,7 @@ func main() {
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
-	//declarar la cues d'avis
+	//declarar les cues d'avis
 
 	for i := 0; i < len(nomCues); i++ {
 		_, err = ch.QueueDeclare(
@@ -59,13 +58,12 @@ func main() {
 
 	for i := 0; i < len(nomCues); i++ {
 		err = ch.QueueBind(nomCues[i], "", "avisPolicia", false, nil)
-		failOnError(err, "Failed to bind queue Avisos_FumadorMistos to avisPolicia")
 		if err != nil {
 			fmt.Fprintln(os.Stdout, []any{"Failed to bin queue %s to exchange avisPolicia", nomCues[i]}...)
 		}
 	}
 
-	//publicara el missatge de "policia" per la cua d'avisos per l'estanque, i per les cues
+	//publicara el missatge de "policia" per la cua Avisos_estanquer, i per les cues
 	// de Avisos_FumadorMistos i Avisos_FumadorTabac
 	err = ch.Publish("avisPolicia", "", false, false, amqp.Publishing{Body: []byte("policia")})
 	failOnError(err, "Failed to publish a messsage: policia ")

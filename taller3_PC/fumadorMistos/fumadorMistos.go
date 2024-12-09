@@ -90,6 +90,7 @@ func fumadorMistos(ch *amqp.Channel) {
 	}()
 	//agafar els mistos
 	for d := range consumicions_mistos {
+		//convertim el numero de tabac, enviat com a string, a un enter
 		numMistos, err := strconv.Atoi(string(d.Body))
 		failOnError(err, "Failed to convert d.Body to an integer")
 
@@ -108,9 +109,10 @@ func veLaPolicia_FM(ch *amqp.Channel) {
 	failOnError(err, "Failed to register a consumer")
 
 	for d := range messages {
-		fmt.Println("\n Anem que ve la policia!")
-		d.Ack(false)
-		//time.Sleep(2 * time.Second)
+		fmt.Println("\nAnem que ve la policia!")
+		d.Ack(false) //afirmar que s'ha rebut l'avis correctament
+		//publicar de nou el missatge d'avis a les cues vinculades a l'exchange avisPolicia
+
 		err = ch.Publish("avisPolicia", "", false, false, amqp.Publishing{Body: []byte("policia")})
 		failOnError(err, "Failed to publish a messsage")
 

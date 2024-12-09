@@ -19,6 +19,7 @@ func failOnError(err error, msg string) {
 var nomCues = [3]string{"tabac", "peticions", "Avisos_FumadorTabac"}
 
 func main() {
+	//establir conexió amb rabbitMQ
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
@@ -54,7 +55,7 @@ func main() {
 }
 
 func fumadorTabac(ch *amqp.Channel) {
-
+	//cua per consumir els tabacs que envia l'estanquer per la cua tabac
 	consumicions_tabac, err := ch.Consume(
 		"tabac", //queue
 		"",      //consumer
@@ -65,6 +66,7 @@ func fumadorTabac(ch *amqp.Channel) {
 		nil,     // args
 	)
 	failOnError(err, "Failed to register consumer: consumicions_tabac")
+	//canal per sincronitzar l'eviament i el processament de peticions
 	mes_peticio := make(chan bool)
 	go func() {
 
@@ -81,37 +83,40 @@ func fumadorTabac(ch *amqp.Channel) {
 				})
 
 			failOnError(err, "Failed to publish a message to get tabac")
-			<-mes_peticio //espera rebre una resposta per demanar més mistos
+			<-mes_peticio //esperem rebre una resposta per poder demanar més tabac
 
 			time.Sleep(time.Second * 1) //espera 1 segons
 			//demana més tabac
 			fmt.Println(". . .\nMe dones més tabac?")
 		}
 	}()
-	//agafar el tabac
+	//processar els missatges que envia l'estanquer
 	for d := range consumicions_tabac {
+		//convertim el numero de tabac, enviat com a string, a un enter
 		numTabacs, err := strconv.Atoi(string(d.Body))
 		failOnError(err, "Failed to convert d.Body to an integer")
 
 		fmt.Printf("He agafat el tabac %d. Gràcies!\n", numTabacs)
-		//permis per demanar mes mistos
+		//permis per poder demanar mes mistos
 		mes_peticio <- true
-		d.Ack(false) //confirmar que ha rebut el missatge actual
+		d.Ack(false) //confirmar que s'ha rebut el missatge actual
 		time.Sleep(time.Second * 1)
 	}
 
 }
 
 func veLaPolicia_FT(ch *amqp.Channel) {
+	//Definem la cua que consumirá els avisos que s'enviaren als fumadors de tabac
 	messages, err := ch.Consume("Avisos_FumadorTabac", "", false, false, false, false, nil)
 	failOnError(err, "Failed to register a consumer:Avisos_FumadorTabac ")
-	//tornar a ficas el missatge d'avis per la resta de fumadors de tabac
+	//Com que l'exchange només envia un missatge a una cua, i no a tots els clients
+	//que consumeixn d'ella. Per aixo tornam a ficas el missatge d'avis per la resta de fumadors de tabac
 
 	for d := range messages {
-		fmt.Println("\n Anem que ve la policia!")
+		fmt.Println("\nAnem que ve la policia!")
 
-		d.Ack(false)
-		//time.Sleep(2 * time.Second)
+		d.Ack(false) //afirmar que s'ha rebut l'avis correctament
+		//publicar de nou el missatge d'avis a les cues vinculades a l'exchange avisPolicia
 		err = ch.Publish("avisPolicia", "", false, false, amqp.Publishing{Body: []byte("policia")})
 		failOnError(err, "Failed to publish a messsage")
 
