@@ -133,7 +133,7 @@ func veLaPolicia_FT(ch *amqp.Channel) {
 
 	for d := range messages {
 		fmt.Println("\n Anem que ve la policia!")
-	
+
 		d.Ack(false)
 		//time.Sleep(2 * time.Second)
 		err = ch.Publish("avisPolicia", "", false, false, amqp.Publishing{Body: []byte("policia")})

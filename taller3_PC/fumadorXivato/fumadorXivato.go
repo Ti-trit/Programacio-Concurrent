@@ -24,17 +24,7 @@ func main() {
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
-	//declarar la cua per avisar
-
-	_, err = ch.QueueDeclare(
-		"avisos", //name
-		false,    //durable
-		false,    //delete when unused
-		false,    //exclusive
-		false,    //no-wait
-		nil,      //arguments
-	)
-	failOnError(err, "Failed to declare a queue")
+	//declarar la cues d'avis
 
 	_, err = ch.QueueDeclare(
 		"Avisos_FumadorMistos", //name
@@ -71,9 +61,7 @@ func main() {
 	failOnError(err, "Failed to declare an exchange")
 
 	//vincular cada una de les cues a les que enviarem l'avis de la policia
-	// err = ch.QueueBind("peticions", "", "avisPolicia", false, nil)
-	// failOnError(err, "Failed to bind queue peticions to avisPolicia")
-	//fumadorMistos
+
 	err = ch.QueueBind("Avisos_FumadorMistos", "", "avisPolicia", false, nil)
 	failOnError(err, "Failed to bind queue Avisos_FumadorMistos to avisPolicia")
 	//fumadorTabac

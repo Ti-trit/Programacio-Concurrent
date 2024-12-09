@@ -164,7 +164,7 @@ func veLaPolicia(ch *amqp.Channel) {
 		ch.QueueDelete("mistos", false, false, true)
 		ch.QueueDelete("peticions", false, false, true)
 		ch.QueueDelete("messages", false, false, true)
-		ch.QueueDelete("avisos", false, false, true)
+
 		ch.QueueDelete("Avisos_estanquer", false, false, false)
 
 		//esperar 3 segons perquè la resta de fumados tenguin temps
