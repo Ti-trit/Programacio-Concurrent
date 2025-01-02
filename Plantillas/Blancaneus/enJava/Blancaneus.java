@@ -11,7 +11,6 @@ public class Blancaneus implements Runnable {
     }
     @Override
 
-
     public void run() {
         try {
             Random rn = new Random();

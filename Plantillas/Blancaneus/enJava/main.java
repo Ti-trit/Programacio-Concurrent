@@ -17,7 +17,7 @@ public class main {
     static Semaphore EsperarMenjar = new Semaphore(0);
     static Semaphore mutex = new Semaphore(1);
     static Semaphore mutex_nans = new Semaphore(1);
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         System.out.println("Simulació de BlancaNeus i els 7 nans");
 
         Thread Blancaneus = new Thread(new Blancaneus());

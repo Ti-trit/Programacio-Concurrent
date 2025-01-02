@@ -5,6 +5,8 @@
  * TOTS ELS TIPUS PRIMITIUS SÓN ATOMICS.
  * LONG I DOUBLE HO PODEN SER SI ES DECLAREN VOLATILS.
  */
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class plantillaJava implements Runnable{
     static final int THREADS= 3;
     int id;
@@ -34,11 +36,14 @@ public class plantillaJava implements Runnable{
             threads[i] = new Thread(new plantillaJava(i));
             threads[i].start();
         }
+        try {
+            for (i = 0; i < THREADS; i++) {
+                threads[i].join();
+            }
 
-        for (i = 0; i < THREADS; i++) {
-            threads[i].join();
+        }catch (InterruptedException ex){
+            Logger.getLogger(plantillaJava.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
 
