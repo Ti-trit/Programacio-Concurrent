@@ -7,6 +7,8 @@
  */
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.concurrent.Semaphore;
+
 public class plantillaJava implements Runnable{
     static final int THREADS= 3;
     int id;
