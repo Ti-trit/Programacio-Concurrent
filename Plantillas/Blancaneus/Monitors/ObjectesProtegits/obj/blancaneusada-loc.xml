@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project>
+    <vfs_file>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\blancaneusada.gpr</vfs_file>
+    <file_marker column=" 4" line=" 3" >
+      <vfs_project>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\blancaneusada.gpr</vfs_project>
+      <vfs_file>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\src\monitor.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\blancaneusada.gpr</vfs_project>
+      <vfs_file>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\src\monitor.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 4" line=" 3" >
+      <vfs_project>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\blancaneusada.gpr</vfs_project>
+      <vfs_file>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\src\monitor.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 20" line=" 39" >
+      <vfs_project>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\blancaneusada.gpr</vfs_project>
+      <vfs_file>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\src\monitor.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 19" line=" 39" >
+      <vfs_project>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\blancaneusada.gpr</vfs_project>
+      <vfs_file>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\src\def_monitor.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 14" line=" 4" >
+      <vfs_project>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\blancaneusada.gpr</vfs_project>
+      <vfs_file>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\src\def_monitor.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 7" line=" 23" >
+      <vfs_project>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\blancaneusada.gpr</vfs_project>
+      <vfs_file>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\src\def_monitor.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 1" >
+      <vfs_project>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\blancaneusada.gpr</vfs_project>
+      <vfs_file>C:\Users\h\Videos\Plantillas\Blancaneus\Monitors\ObjectesProtegits\src\main.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>
